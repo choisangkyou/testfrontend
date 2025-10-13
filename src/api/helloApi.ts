@@ -1,8 +1,4 @@
-import axios from "axios";
-
-const api = axios.create({
-  baseURL: "http://localhost:8080",
-});
+import { api } from "./axiosConfig";
 
 export const getHello = async () => {
   const response = await api.get("/hello");
