@@ -1,0 +1,39 @@
+{
+  "project_name": "testfrontend",
+  "language": "ko",
+  "theme": "modern",
+  "model": "gpt-4o",
+  "description": "React + TypeScript 기반의 프론트엔드 애플리케이션으로, 환경 설정과 배포 자동화에 초점을 맞춘 프로젝트입니다.",
+  "focus": "configuration",
+  "sections": [
+    "overview",
+    "tech_stack",
+    "project_structure",
+    "environment_variables",
+    "scripts",
+    "eslint_prettier",
+    "ci_cd",
+    "deployment",
+    "developer_notes"
+  ],
+  "custom_prompts": {
+    "overview": "이 프로젝트는 React + TypeScript 기반이며, 환경 설정 및 빌드/배포 자동화가 핵심입니다.",
+    "tech_stack": "언어, 프레임워크, 테스트 도구, CI/CD 도구 등 주요 기술 스택을 표로 정리하세요.",
+    "project_structure": "src, public, cypress, .github 등 주요 폴더 구조를 계층적으로 보여주세요.",
+    "environment_variables": ".env.example 파일을 분석해 환경 변수와 설명을 표로 정리하세요.",
+    "scripts": "package.json의 npm 스크립트를 표로 정리하고 각 스크립트의 용도를 명시하세요.",
+    "eslint_prettier": "코드 품질 관리 설정(ESLint, Prettier 등)을 구체적으로 기술하세요.",
+    "ci_cd": "GitHub Actions, Vercel 배포, 워크플로우 파일 등을 중심으로 CI/CD 파이프라인을 설명하세요.",
+    "deployment": "Vercel, Netlify, AWS 등 배포 옵션과 빌드 명령어를 단계별로 작성하세요.",
+    "developer_notes": "개발 환경(필수 Node 버전, 권장 IDE, 로컬 실행 주의점 등)을 요약하세요."
+  },
+  "include_files": [
+    "package.json",
+    "tsconfig.json",
+    "eslint.config.mjs",
+    ".github/workflows/",
+    ".env.example"
+  ],
+  "exclude_dirs": ["node_modules", "build", "dist"],
+  "output": "./README_OUT.md"
+}
