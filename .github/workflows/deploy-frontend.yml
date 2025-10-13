@@ -2,9 +2,9 @@ name: Deploy Frontend to Vercel
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 env:
@@ -17,26 +17,26 @@ jobs:
   # ==========================================
   lint-and-test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v3
-      
+
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          cache: 'npm'
-      
+          node-version: "18"
+          cache: "npm"
+
       - name: 📚 Install dependencies
         run: npm ci
-      
+
       - name: 🔍 Run ESLint
         run: npm run lint --if-present
-      
+
       - name: ✔️ TypeScript type check
         run: npm run type-check --if-present || npx tsc --noEmit
-      
+
       - name: 🧪 Run tests
         run: npm run test --if-present || echo "No test script found"
 
@@ -47,19 +47,19 @@ jobs:
     needs: lint-and-test
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    
+
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v3
-      
+
       - name: 🚀 Deploy to Vercel (Preview)
-        uses: vercel/action@v4
+        uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           scope: ${{ secrets.VERCEL_ORG_ID }}
-      
+
       - name: 📝 Comment PR with deployment URL
         uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
@@ -79,20 +79,20 @@ jobs:
     needs: lint-and-test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    
+
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v3
-      
+
       - name: 🚀 Deploy to Vercel (Production)
-        uses: vercel/action@v4
+        uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
+          vercel-args: "--prod"
           scope: ${{ secrets.VERCEL_ORG_ID }}
-      
+
       - name: ✅ Production deployment successful
         run: |
           echo "========================================"
@@ -108,17 +108,17 @@ jobs:
     needs: deploy-production
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    
+
     steps:
       - name: 🏥 Health check
         run: |
           echo "========================================"
           echo "🏥 Performing health check"
           echo "========================================"
-          
+
           MAX_ATTEMPTS=10
           ATTEMPT=0
-          
+
           while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
             ATTEMPT=$((ATTEMPT+1))
             echo "⏳ Health check attempt $ATTEMPT/$MAX_ATTEMPTS..."
@@ -136,13 +136,13 @@ jobs:
             echo "⏳ Waiting 5s before next attempt..."
             sleep 5
           done
-          
+
           echo ""
           echo "========================================"
           echo "⚠️ Health check inconclusive (timeout)"
           echo "========================================"
           exit 0
-      
+
       - name: 📧 Notify Slack (Optional)
         uses: slackapi/slack-github-action@v1.24.0
         if: always()
