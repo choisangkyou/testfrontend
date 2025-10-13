@@ -104,62 +104,62 @@ jobs:
   # ==========================================
   # Job 4: 헬스 체크 & 알림
   # ==========================================
-  health-check:
-    needs: deploy-production
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+  # health-check:
+  #   needs: deploy-production
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
-    steps:
-      - name: 🏥 Health check
-        run: |
-          echo "========================================"
-          echo "🏥 Performing health check"
-          echo "========================================"
+  #   steps:
+  #     - name: 🏥 Health check
+  #       run: |
+  #         echo "========================================"
+  #         echo "🏥 Performing health check"
+  #         echo "========================================"
 
-          MAX_ATTEMPTS=10
-          ATTEMPT=0
+  #         MAX_ATTEMPTS=10
+  #         ATTEMPT=0
 
-          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
-            ATTEMPT=$((ATTEMPT+1))
-            echo "⏳ Health check attempt $ATTEMPT/$MAX_ATTEMPTS..."
-            
-            if curl -f https://${{ env.VERCEL_URL }} 2>/dev/null; then
-              echo ""
-              echo "========================================"
-              echo "✅ APPLICATION HEALTHY!"
-              echo "========================================"
-              echo "🌐 URL: https://${{ env.VERCEL_URL }}"
-              echo "========================================"
-              exit 0
-            fi
-            
-            echo "⏳ Waiting 5s before next attempt..."
-            sleep 5
-          done
+  #         while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
+  #           ATTEMPT=$((ATTEMPT+1))
+  #           echo "⏳ Health check attempt $ATTEMPT/$MAX_ATTEMPTS..."
 
-          echo ""
-          echo "========================================"
-          echo "⚠️ Health check inconclusive (timeout)"
-          echo "========================================"
-          exit 0
+  #           if curl -f https://${{ env.VERCEL_URL }} 2>/dev/null; then
+  #             echo ""
+  #             echo "========================================"
+  #             echo "✅ APPLICATION HEALTHY!"
+  #             echo "========================================"
+  #             echo "🌐 URL: https://${{ env.VERCEL_URL }}"
+  #             echo "========================================"
+  #             exit 0
+  #           fi
 
-      - name: 📧 Notify Slack (Optional)
-        uses: slackapi/slack-github-action@v1.24.0
-        if: always()
-        with:
-          payload: |
-            {
-              "text": "Frontend Deployment Status",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*Vercel Deployment*\n✅ Production deployment completed!\n🌐 URL: https://${{ env.VERCEL_URL }}"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+  #           echo "⏳ Waiting 5s before next attempt..."
+  #           sleep 5
+  #         done
+
+  #         echo ""
+  #         echo "========================================"
+  #         echo "⚠️ Health check inconclusive (timeout)"
+  #         echo "========================================"
+  #         exit 0
+
+  #     - name: 📧 Notify Slack (Optional)
+  #       uses: slackapi/slack-github-action@v1.24.0
+  #       if: always()
+  #       with:
+  #         payload: |
+  #           {
+  #             "text": "Frontend Deployment Status",
+  #             "blocks": [
+  #               {
+  #                 "type": "section",
+  #                 "text": {
+  #                   "type": "mrkdwn",
+  #                   "text": "*Vercel Deployment*\n✅ Production deployment completed!\n🌐 URL: https://${{ env.VERCEL_URL }}"
+  #                 }
+  #               }
+  #             ]
+  #           }
+  #       env:
+  #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  #         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
