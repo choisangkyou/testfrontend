@@ -11,9 +11,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   address VARCHAR(255) NULL,
   address_detail VARCHAR(255) NULL,
   zip_code CHAR(5) NULL,
-  contact_number VARCHAR(20) NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
+    contact_number VARCHAR(20) NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 사용자 학습 프로필
@@ -24,9 +24,9 @@ CREATE TABLE IF NOT EXISTS user_learning_profile (
   avg_reading_speed_max FLOAT NULL,
   preferred_genres JSON NULL,
   preferred_themes JSON NULL,
-  preferred_tone VARCHAR(50) NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+    preferred_tone VARCHAR(50) NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_userprofile_user (user_id),
   CONSTRAINT fk_userprofile_user FOREIGN KEY (user_id)
     REFERENCES `user`(user_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -37,10 +37,10 @@ CREATE TABLE IF NOT EXISTS user_learning_profile (
 CREATE TABLE IF NOT EXISTS books (
   book_id CHAR(36) NOT NULL PRIMARY KEY,
   book_name VARCHAR(255) NOT NULL,
-  volume_number INT NOT NULL,
+    volume_number INT NOT NULL,
   description TEXT NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE KEY ux_book_volume (book_name, volume_number)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -48,10 +48,10 @@ CREATE TABLE IF NOT EXISTS books (
 CREATE TABLE IF NOT EXISTS lecture (
   lecture_id CHAR(36) NOT NULL PRIMARY KEY,
   book_id CHAR(36) NOT NULL,
-  lecture_name VARCHAR(255) NOT NULL,
+    lecture_name VARCHAR(255) NOT NULL,
   description TEXT NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_lecture_book (book_id),
   CONSTRAINT fk_lecture_book FOREIGN KEY (book_id)
     REFERENCES books(book_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -64,9 +64,9 @@ CREATE TABLE IF NOT EXISTS lecture_content (
   content_type ENUM('영상','문제','읽기자료','기타') NOT NULL,
   content_title VARCHAR(255) NOT NULL,
   content_body TEXT NULL,
-  order_index DECIMAL(5,2) NOT NULL DEFAULT 0,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+    order_index DECIMAL(5,2) NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_lecturecontent_lecture (lecture_id),
   CONSTRAINT fk_lecturecontent_lecture FOREIGN KEY (lecture_id)
     REFERENCES lecture(lecture_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -76,10 +76,10 @@ CREATE TABLE IF NOT EXISTS lecture_content (
 CREATE TABLE IF NOT EXISTS lesson_section (
   section_id CHAR(36) NOT NULL PRIMARY KEY,
   lecture_id CHAR(36) NOT NULL,
-  section_name VARCHAR(255) NOT NULL,
+    section_name VARCHAR(255) NOT NULL,
   description TEXT NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_section_lecture (lecture_id),
   CONSTRAINT fk_section_lecture FOREIGN KEY (lecture_id)
     REFERENCES lecture(lecture_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -90,12 +90,12 @@ CREATE TABLE IF NOT EXISTS lesson_section (
 CREATE TABLE IF NOT EXISTS user_lecture_progress (
   progress_id CHAR(36) NOT NULL PRIMARY KEY,
   user_id CHAR(36) NOT NULL,
-  lecture_id CHAR(36) NOT NULL,
-  start_time DATETIME(6) NOT NULL,
-  end_time DATETIME(6) NULL,
-  is_completed TINYINT(1) NOT NULL DEFAULT 0,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+    lecture_id CHAR(36) NOT NULL,
+  start_time DATETIME NOT NULL,
+  end_time DATETIME NULL,
+    is_completed TINYINT(1) NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_userlecture_user (user_id),
   INDEX idx_userlecture_lecture (lecture_id),
   CONSTRAINT fk_userlecture_user FOREIGN KEY (user_id)
@@ -108,13 +108,13 @@ CREATE TABLE IF NOT EXISTS user_lecture_progress (
 CREATE TABLE IF NOT EXISTS user_lecture_section_progress (
   section_progress_id CHAR(36) NOT NULL PRIMARY KEY,
   progress_id CHAR(36) NOT NULL,
-  section_id CHAR(36) NOT NULL,
-  start_time DATETIME(6) NOT NULL,
-  end_time DATETIME(6) NULL,
+    section_id CHAR(36) NOT NULL,
+  start_time DATETIME NOT NULL,
+  end_time DATETIME NULL,
   is_completed TINYINT(1) NOT NULL DEFAULT 0,
-  last_light_status_id CHAR(36) NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+    last_light_status_id CHAR(36) NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_sectionprogress_progress (progress_id),
   INDEX idx_sectionprogress_section (section_id),
   INDEX idx_sectionprogress_light (last_light_status_id),
@@ -131,10 +131,10 @@ CREATE TABLE IF NOT EXISTS user_lecture_section_progress (
 -- 신호등 상태
 CREATE TABLE IF NOT EXISTS light_status (
   light_status_id CHAR(36) NOT NULL PRIMARY KEY,
-  status_name VARCHAR(50) NOT NULL,   -- 표준, 느림, 빠름, 나쁨, 좋음
+    status_name VARCHAR(50) NOT NULL,   -- 표준, 느림, 빠름, 나쁨, 좋음
   description TEXT NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 수업 구간 기준
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS section_standard (
   max_time_sec INT UNSIGNED NULL,
   standard_type ENUM('시간비율','학년기준','정오판정') NOT NULL DEFAULT '학년기준',
   extra_condition JSON NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   INDEX idx_section_standard_section (section_id),
   CONSTRAINT fk_sectionstandard_section FOREIGN KEY (section_id)
     REFERENCES lesson_section(section_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS light_rule (
   threshold JSON NULL,
   special_condition JSON NULL,
   result_light_status_id CHAR(36) NOT NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   INDEX idx_lightrule_standard (standard_id),
   INDEX idx_lightrule_result (result_light_status_id),
   CONSTRAINT fk_lightrule_standard FOREIGN KEY (standard_id)
@@ -180,8 +180,8 @@ CREATE TABLE IF NOT EXISTS vocabulary (
   hint TEXT NULL,
   example_sentence TEXT NULL,
   difficulty_level ENUM('하','중','상') DEFAULT '중',
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_vocab_lecture FOREIGN KEY (lecture_id)
     REFERENCES lecture(lecture_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -193,8 +193,8 @@ CREATE TABLE IF NOT EXISTS vocab_question (
   question_text TEXT NOT NULL,
   question_type ENUM('뜻고르기','예문빈칸','동의어','반의어') DEFAULT '뜻고르기',
   explanation TEXT NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_vocabquestion_vocab FOREIGN KEY (vocab_id)
     REFERENCES vocabulary(vocab_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -206,8 +206,8 @@ CREATE TABLE IF NOT EXISTS vocab_choice (
   choice_text VARCHAR(255) NOT NULL,
   is_correct TINYINT(1) NOT NULL DEFAULT 0,
   display_order TINYINT UNSIGNED NOT NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_vocabchoice_question FOREIGN KEY (question_id)
     REFERENCES vocab_question(question_id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -220,7 +220,7 @@ CREATE TABLE IF NOT EXISTS user_vocab_question_result (
   question_id CHAR(36) NOT NULL,
   selected_choice_id CHAR(36) NULL,
   is_correct TINYINT(1) NOT NULL DEFAULT 0,
-  answered_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  answered_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_uservocabanswer_user FOREIGN KEY (user_id)
     REFERENCES `user`(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT fk_uservocabanswer_question FOREIGN KEY (question_id)
@@ -237,9 +237,9 @@ CREATE TABLE IF NOT EXISTS user_vocab_status (
   final_status ENUM('known','unknown') NOT NULL,
   example_written TINYINT(1) NOT NULL DEFAULT 0,
   quiz_status TINYINT(1) NOT NULL DEFAULT 0,
-  last_study_at DATETIME(6) NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  last_study_at DATETIME NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   UNIQUE INDEX ux_user_vocab (user_id, vocab_id),
   CONSTRAINT fk_uservocab_user FOREIGN KEY (user_id)
     REFERENCES `user`(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -257,9 +257,9 @@ CREATE TABLE IF NOT EXISTS descript_summary (
   title VARCHAR(255) NOT NULL,
   instruction TEXT NOT NULL,
   hint_guide TEXT NULL,
-  model_summary TEXT NOT NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+    model_summary TEXT NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_dsummary_book FOREIGN KEY (book_id)
     REFERENCES books(book_id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT fk_dsummary_lecture FOREIGN KEY (lecture_id)
@@ -274,7 +274,7 @@ CREATE TABLE IF NOT EXISTS descript_summary_hint (
   hint_question VARCHAR(255) NOT NULL,
   hint_pattern VARCHAR(255) NULL,
   example_answer TEXT NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_dshint_summary FOREIGN KEY (descript_summary_id)
     REFERENCES descript_summary(descript_summary_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS user_descript_hint_response (
   summary_hint_id CHAR(36) NOT NULL,
   user_id CHAR(36) NOT NULL,
   user_answer TEXT NOT NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_udresp_hint FOREIGN KEY (summary_hint_id)
     REFERENCES descript_summary_hint(summary_hint_id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT fk_udresp_user FOREIGN KEY (user_id)
@@ -300,9 +300,9 @@ CREATE TABLE IF NOT EXISTS user_descript_summary_result (
   my_summary TEXT NOT NULL,
   is_model_checked TINYINT(1) NOT NULL DEFAULT 0,
   ai_score INT UNSIGNED NULL,
-  ai_feedback TEXT NULL,
-  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+    ai_feedback TEXT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT fk_udsummary_result_user FOREIGN KEY (user_id)
     REFERENCES `user`(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT fk_udsummary_result_summary FOREIGN KEY (descript_summary_id)
@@ -324,6 +324,18 @@ CREATE TABLE IF NOT EXISTS user_descript_summary_progress (
       ELSE (completed_summary_count / total_passage_count) * 100
     END
   ) STORED,
-  last_updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(
+  last_updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_summary_progress_user (user_id),
+  INDEX idx_summary_progress_book (book_id),
+  INDEX idx_summary_progress_lecture (lecture_id),
+  CONSTRAINT fk_summary_progress_user FOREIGN KEY (user_id)
+    REFERENCES `user`(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_summary_progress_book FOREIGN KEY (book_id)
+    REFERENCES books(book_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_summary_progress_lecture FOREIGN KEY (lecture_id)
+    REFERENCES lecture(lecture_id) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
