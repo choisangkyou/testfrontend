@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KBS 한국어능력시험 수험표</title>
+    <!-- <link rel="stylesheet" href="print.css" media="print" /> -->
+    <style>
+      body {
+        font-family: "Malgun Gothic", "Dotum", sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      .container {
+        width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 30px;
+        border: 2px solid #333;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 3px double #333;
+        padding-bottom: 10px;
+      }
+      .header h1 {
+        font-size: 28px;
+        color: #c00;
+        margin-bottom: 5px;
+      }
+      .header h2 {
+        font-size: 20px;
+        color: #333;
+        margin-top: 0;
+      }
+      .info-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+      }
+      .info-table th,
+      .info-table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+        font-size: 16px;
+      }
+      .info-table th {
+        background-color: #f9f9f9;
+        width: 30%;
+        font-weight: bold;
+      }
+      .note-section {
+        border: 1px solid #c00;
+        padding: 15px;
+        background-color: #fff8f8;
+      }
+      .note-section h3 {
+        color: #c00;
+        margin-top: 0;
+        font-size: 18px;
+        border-bottom: 1px solid #c00;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+      }
+      .note-section ul {
+        list-style-type: decimal;
+        padding-left: 20px;
+        margin: 0;
+        line-height: 1.6;
+      }
+      .print-button-area {
+        text-align: center;
+        margin-top: 30px;
+      }
+      .print-button {
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+      /* 프린트 시 불필요한 요소 숨김 */
+      @media print {
+        .print-button-area {
+          display: none;
+        }
+        .container {
+          box-shadow: none;
+          border: none;
+          width: 100%;
+          padding: 0;
+        }
+        body {
+          background-color: #fff;
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>KBS 한국어능력시험</h1>
+        <h2>수험표 (Admissions Ticket)</h2>
+      </div>
+
+      <table class="info-table">
+        <thead>
+          <tr>
+            <th
+              colspan="2"
+              style="text-align: center; background-color: #e0e0e0"
+            >
+              수험 정보
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>시험 제목</th>
+            <td id="data-exam-title">[제 80회] KBS 한국어능력시험</td>
+          </tr>
+          <tr>
+            <th>수험 번호</th>
+            <td id="data-candidate-id">123456789</td>
+          </tr>
+          <!-- <tr>
+            <th>수험표</th>
+            <td id="data-admissions-ticket">
+              KBS-2025-000123
+            </td>
+          </tr> -->
+          <tr>
+            <th>이름</th>
+            <td id="data-name">홍 길 동</td>
+          </tr>
+
+          <tr>
+            <th>시험일</th>
+            <td id="data-exam-date">2025년 10월 26일 (일) 10:00</td>
+          </tr>
+          <tr>
+            <th>고사장</th>
+            <td id="data-exam-hall">서울대학교 사범대학 501동 301호</td>
+          </tr>
+          <tr>
+            <th>입실 시간</th>
+            <td id="data-entry-time">
+              <span style="color: red; font-weight: bold">09:30 까지</span>
+              (09:50 이후 입실 절대 불가)
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note-section">
+        <h3>수험자 유의사항 (Important Notice)</h3>
+        <ul>
+          <li id="note-item-1">
+            본 수험표와 신분증(주민등록증, 운전면허증, 기간 만료 전 여권,
+            청소년증 등)을 반드시 지참해야 합니다.
+          </li>
+          <li id="note-item-2">
+            컴퓨터용 사인펜과 수정 테이프를 지참하여 주시기 바랍니다. 연필이나
+            일반 펜으로는 마킹할 수 없습니다.
+          </li>
+          <li id="note-item-3">
+            휴대폰 등 통신 기기 및 전자기기는 시험 중 소지할 수 없으며, 반드시
+            전원을 끄고 가방에 넣어 시험실 앞쪽에 제출해야 합니다.
+          </li>
+          <li id="note-item-4">
+            시험 시작 후에는 퇴실이 불가하며, 시험 종료 후 감독관의 지시에 따라
+            퇴실합니다.
+          </li>
+          <li id="note-item-5">
+            자가용 이용은 지양하며, 대중교통을 이용해 주십시오. (주차료 지원
+            없음)
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="print-button-area">
+      <button class="print-button" onclick="window.print()">수험표 출력</button>
+    </div>
+
+    <script>
+      // 참고: 실제 시스템에서는 백엔드에서 데이터를 받아와 DOM을 업데이트하는 로직이 필요합니다.
+      // 현재는 예시 데이터가 HTML에 직접 입력되어 있습니다.
+      // JavaScript를 사용하여 동적 데이터를 삽입하는 예시는 다음과 같습니다.
+      /*
+    const examData = {
+        title: "[제 81회] KBS 한국어능력시험",
+        name: "김철수",
+        candidateId: "987654321",
+        date: "2025년 11월 30일 (일) 10:00",
+        hall: "연세대학교 공학원 지하 1층",
+        entryTime: "09:30 까지"
+    };
+
+    document.getElementById('data-exam-title').textContent = examData.title;
+    document.getElementById('data-name').textContent = examData.name;
+    document.getElementById('data-candidate-id').textContent = examData.candidateId;
+    document.getElementById('data-exam-date').textContent = examData.date;
+    document.getElementById('data-exam-hall').textContent = examData.hall;
+    document.getElementById('data-entry-time').innerHTML = `<span style="color: red; font-weight: bold;">${examData.entryTime}</span> (09:50 이후 입실 절대 불가)`;
+    */
+    </script>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+/* 기본 스타일 */
+body {
+  font-family: "Malgun Gothic", "Dotum", "Apple SD Gothic Neo", sans-serif;
+  margin: 0;
+  padding: 40px 20px;
+  background-color: #f8f8f8;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 전체 컨테이너 스타일 */
+.container {
+  width: 750px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 헤더 스타일 */
+.header {
+  text-align: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 5px solid #0056b3; /* KBS 상징색 계열 사용 */
+}
+
+.header h1 {
+  font-size: 30px;
+  color: #0056b3;
+  margin: 0 0 5px 0;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.header h2 {
+  font-size: 18px;
+  color: #555;
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}
+
+.exam-info-header {
+  font-size: 17px;
+  font-weight: bold;
+  color: #cc0000; /* 강조색 */
+}
+
+/* 수험자 정보 및 사진 영역 배치 */
+.candidate-area {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  border: 1px solid #eee;
+  padding: 15px;
+}
+
+/* 정보 테이블 스타일 */
+.info-table {
+  width: 65%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.info-table th,
+.info-table td {
+  padding: 10px 15px;
+  border: 1px solid #e0e0e0;
+}
+
+.info-table th {
+  background-color: #f0f4f8;
+  width: 35%;
+  font-weight: bold;
+  color: #333;
+  text-align: right;
+}
+
+.info-table td {
+  font-weight: 500;
+  color: #111;
+}
+
+.highlight-time {
+  color: #cc0000;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.sub-text {
+  font-size: 13px;
+  color: #777;
+  margin-left: 5px;
+}
+
+/* 사진 박스 스타일 */
+.photo-box {
+  width: 120px;
+  height: 150px;
+  border: 2px dashed #aaa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
+  color: #999;
+  background-color: #fdfdfd;
+}
+
+/* 유의사항 섹션 */
+.note-section {
+  margin-bottom: 30px;
+  border-top: 2px solid #ddd;
+  padding-top: 20px;
+}
+
+.note-section h3 {
+  color: #0056b3;
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #0056b3;
+}
+
+.note-section ul {
+  list-style-type: "👉 "; /* 세련된 기호 사용 */
+  padding-left: 20px;
+  margin: 0;
+  font-size: 14px;
+}
+
+.note-section li {
+  margin-bottom: 8px;
+}
+
+/* 푸터 (지참 안내) */
+.footer {
+  text-align: center;
+  font-size: 15px;
+  color: #333;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
+
+/* 출력 버튼 영역 (화면에서만 보임) */
+.print-button-area {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.print-button {
+  padding: 12px 25px;
+  font-size: 17px;
+  cursor: pointer;
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.print-button:hover {
+  background-color: #004085;
+}
+
+/* 프린트 시 스타일 (최적화) */
+@media print {
+  body {
+    background-color: #fff;
+    padding: 0;
+  }
+  .container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+  }
+  .print-button-area {
+    display: none; /* 출력 버튼 숨김 */
+  }
+  /* 테이블 테두리 강조 */
+  .info-table th,
+  .info-table td {
+    border-color: #666;
+  }
+  /* 인쇄 시 URL이나 경로가 나오지 않도록 링크 스타일 제거 */
+  a[href]:after {
+    content: none !important;
+  }
+}
