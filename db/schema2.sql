@@ -1,3 +1,9 @@
+
+/*
+*교재-강의-지문-페이지 
+출제 기준: N권N강 
+*/
+
 -- ================================================================================
 -- 읽쓰문해력(ICKS Literacy) 데이터베이스 설계 정의서 -- 최종!!
 -- ================================================================================
@@ -23,11 +29,12 @@ CREATE TABLE `books` (
   `book_name` varchar(255) NOT NULL,
   `volume_number` int NOT NULL COMMENT '권 번호',
   `description` text,
+  `cover_image_url` varchar(500) DEFAULT NULL COMMENT '커버 이미지 URL',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`book_id`),
   UNIQUE KEY `ux_book_volume` (`book_name`,`volume_number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='교재 정보';
 
 
 -- icks_literacy_db.grade_reading_statistics definition
@@ -60,7 +67,7 @@ CREATE TABLE `grade_reading_statistics` (
 
 
 -- icks_literacy_db.light_status definition
-
+-- 신호등 상태 정의
 CREATE TABLE `light_status` (
   `light_status_id` int NOT NULL AUTO_INCREMENT,
   `status_name` varchar(50) NOT NULL COMMENT '표준, 느림, 빠름, 나쁨, 좋음',
@@ -69,7 +76,7 @@ CREATE TABLE `light_status` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`light_status_id`),
   UNIQUE KEY `ux_light_status_name` (`status_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='신호등 상태 정의';
 
 
 -- icks_literacy_db.reading_speed_benchmark definition
@@ -127,7 +134,7 @@ CREATE TABLE `user` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `login_id` (`login_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='사용자 정보';
 
 
 -- icks_literacy_db.lecture definition
@@ -135,14 +142,16 @@ CREATE TABLE `user` (
 CREATE TABLE `lecture` (
   `lecture_id` int NOT NULL AUTO_INCREMENT,
   `book_id` int NOT NULL,
+  `lecture_number` int unsigned NOT NULL COMMENT '강의 번호 (N강)',
   `lecture_name` varchar(255) NOT NULL,
   `description` text,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`lecture_id`),
+  UNIQUE KEY `ux_book_lecture_number` (`book_id`,`lecture_number`),
   KEY `idx_lecture_book` (`book_id`),
   CONSTRAINT `fk_lecture_book` FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='강의 정보';
 
 
 -- icks_literacy_db.lecture_content definition
@@ -159,7 +168,7 @@ CREATE TABLE `lecture_content` (
   PRIMARY KEY (`content_id`),
   KEY `idx_lecturecontent_lecture` (`lecture_id`),
   CONSTRAINT `fk_lecturecontent_lecture` FOREIGN KEY (`lecture_id`) REFERENCES `lecture` (`lecture_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='강의 콘텐츠 정보';
 
 
 -- icks_literacy_db.passage definition
@@ -170,12 +179,13 @@ CREATE TABLE `passage` (
   `passage_title` varchar(255) NOT NULL,
   `passage_content` text NOT NULL,
   `reading_level` enum('초급','중급','고급') DEFAULT '중급',
+  `plot_sequence_count` int unsigned DEFAULT NULL COMMENT '줄거리 항목 개수';
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`passage_id`),
   KEY `idx_passage_lecture` (`lecture_id`),
   CONSTRAINT `fk_passage_lecture` FOREIGN KEY (`lecture_id`) REFERENCES `lecture` (`lecture_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='지문 정보';
 
 
 -- icks_literacy_db.passage_pages definition
@@ -196,7 +206,7 @@ CREATE TABLE `passage_pages` (
   KEY `idx_passagepages_passage` (`passage_id`),
   KEY `idx_passagepages_order` (`passage_id`,`page_order`),
   CONSTRAINT `fk_passagepages_passage` FOREIGN KEY (`passage_id`) REFERENCES `passage` (`passage_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='지문 페이지 정보';
 
 
 -- icks_literacy_db.plot_sequence_item definition
@@ -212,7 +222,7 @@ CREATE TABLE `plot_sequence_item` (
   UNIQUE KEY `ux_passage_item_num` (`passage_id`,`item_number`),
   KEY `idx_plot_item_passage` (`passage_id`),
   CONSTRAINT `fk_plot_item_passage` FOREIGN KEY (`passage_id`) REFERENCES `passage` (`passage_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='줄거리 순서 배열 항목';
 
 
 -- icks_literacy_db.section_standard definition
