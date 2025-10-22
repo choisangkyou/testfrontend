@@ -4,17 +4,13 @@
 -- ------------------------------------------------------
 -- Server version	8.0.36
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES UTF8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*
+TODO: 구간별 신호등 기준 
+느림,표준,빠름(처읆읽기,다시읽기,정보처리) 좋음,나쁨(문제확인 별표있는경우 나쁨,문제풀이 오답으로 탈락할경우 나쁨,줄거리 순서 2번 틀리면 나쁨,어휘문제 두개중 하나라도 틀리면 나쁨)
+예) 처음 읽기 구간 : 학생의 평소읽기 기준 70%~130% 이내: 표준, 70% 이하 :느림, 130% 이상: 빠름
+    다시 읽기 구간 : 정오판정 (오답률 30% 이상: 나쁨, 10%~30%:보통, 10% 이하:좋음)
 
+*/
 --
 -- Table structure for table `books`
 --
@@ -314,7 +310,7 @@ UNLOCK TABLES;
 
 --
 -- Table structure for table `light_rule`
--- TODO: 신호등 규칙 테이블 수정 검토
+
 
 DROP TABLE IF EXISTS `light_rule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -335,18 +331,18 @@ CREATE TABLE `light_rule` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='신호등-규칙';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
+-- 
 -- Dumping data for table `light_rule`
---
+-- 
 
 LOCK TABLES `light_rule` WRITE;
 /*!40000 ALTER TABLE `light_rule` DISABLE KEYS */;
 /*!40000 ALTER TABLE `light_rule` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
+-- 
 -- Table structure for table `light_status`
---TODO: 신호등 상태 테이블 수정 검토
+-- TODO: 신호등 상태 테이블 수정 검토
 
 DROP TABLE IF EXISTS `light_status`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -381,10 +377,10 @@ DROP TABLE IF EXISTS `passage`;
 CREATE TABLE `passage` (
   `passage_id` int NOT NULL AUTO_INCREMENT,
   `lecture_id` int NOT NULL,
-  `passage_title` varchar(255) NOT NULL,
-  `passage_content` text NOT NULL,
+  `passage_title` varchar(255) NOT NULL COMMENT '지문 제목',
+  `passage_content` text NOT NULL COMMENT '지문 내용',
   `reading_level` enum('초급','중급','고급') DEFAULT '중급',
-  `plot_sequence_count` int unsigned DEFAULT NULL COMMENT '줄거리 항목 개수';
+  `plot_sequence_count` int unsigned DEFAULT NULL COMMENT '줄거리 항목 개수',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`passage_id`),
@@ -492,9 +488,9 @@ LOCK TABLES `section` WRITE;
 /*!40000 ALTER TABLE `section` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
+-- 
 -- Table structure for table `section_standard`
---TODO:구간 기준 +  신호등 기준 테이블 수정 검토 (구간 기준에따라 신호등이 적용 되어야함)
+-- TODO:구간 기준 +  신호등 기준 테이블 수정 검토 (구간 기준에따라 신호등이 적용 되어야함)
 
 DROP TABLE IF EXISTS `section_standard`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
