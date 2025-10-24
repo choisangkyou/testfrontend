@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>01_프로젝트_분석_보고서.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%F0%9F%93%8A-%EC%9D%BD%EC%93%B0-%EB%AC%B8%ED%95%B4%EB%A0%A5-%ED%95%99%EC%8A%B5-%ED%94%8C%EB%9E%AB%ED%8F%BC---%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%B6%84%EC%84%9D-%EB%B3%B4%EA%B3%A0%EC%84%9C">📊 읽쓰 문해력 학습 플랫폼 - 프로젝트 분석 보고서</h1>
+<p><strong>문서 버전:</strong> v1.0<br>
+<strong>작성일:</strong> 2025-10-23<br>
+<strong>원본 기획서:</strong> icks_literacy_plan_20251020.pdf</p>
+<hr>
+<h2 id="%F0%9F%93%8B-%EB%AA%A9%EC%B0%A8">📋 목차</h2>
+<ol>
+<li><a href="#1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%9C%EC%9A%94">프로젝트 개요</a></li>
+<li><a href="#2-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98">시스템 아키텍처</a></li>
+<li><a href="#3-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EB%B6%84%EC%84%9D">주요 기능 분석</a></li>
+<li><a href="#4-%EC%82%AC%EC%9A%A9%EC%9E%90-%ED%94%8C%EB%A1%9C%EC%9A%B0">사용자 플로우</a></li>
+<li><a href="#5-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%9D%90%EB%A6%84-%EB%B6%84%EC%84%9D">데이터 흐름 분석</a></li>
+<li><a href="#6-%EB%B9%84%EC%A6%88%EB%8B%88%EC%8A%A4-%EB%A1%9C%EC%A7%81">비즈니스 로직</a></li>
+<li><a href="#7-%EA%B8%B0%EC%88%A0%EC%A0%81-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD">기술적 요구사항</a></li>
+</ol>
+<hr>
+<h2 id="1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%9C%EC%9A%94">1. 프로젝트 개요</h2>
+<h3 id="11-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%AA%A9%EC%A0%81">1.1 프로젝트 목적</h3>
+<p>초등학생의 <strong>독해력 향상</strong>을 위한 체계적인 온라인 학습 플랫폼 구축</p>
+<ul>
+<li>단계별(A, B, C) 맞춤형 학습 제공</li>
+<li>상세한 학습 진행 추적 및 분석</li>
+<li>게임화(Gamification)를 통한 학습 동기 부여</li>
+</ul>
+<h3 id="12-%ED%95%B5%EC%8B%AC-%EA%B0%80%EC%B9%98-%EC%A0%9C%EC%95%88">1.2 핵심 가치 제안</h3>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>학생</strong></td>
+<td>재미있는 퀘스트 시스템, 즉각적인 피드백, 성취감</td>
+</tr>
+<tr>
+<td><strong>학부모</strong></td>
+<td>상세한 학습 결과 리포트, 진행률 추적</td>
+</tr>
+<tr>
+<td><strong>교육기관</strong></td>
+<td>학생 관리 도구, 라이선스 관리, 선물하기 기능</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%84%B1">1.3 서비스 구성</h3>
+<pre class="hljs"><code><div>읽쓰 문해력 플랫폼
+├── 강좌 학습 시스템 (15권, 권당 12~15강)
+├── 종합 어휘장 (오늘의 어휘, 테마 학습)
+├── 서술 요약 (AI 교정)
+├── 퀘스트 시스템 (나만의 디저트 만들기)
+└── 학습 이력 관리 (캘린더, 결과지)
+</div></code></pre>
+<hr>
+<h2 id="2-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98">2. 시스템 아키텍처</h2>
+<h3 id="21-%EA%B5%90%EC%9E%AC-%EA%B5%AC%EC%A1%B0">2.1 교재 구조</h3>
+<pre class="hljs"><code><div>교재 체계
+├── 15개 권 (Volume)
+│   ├── A 단계: 1~5권 (12강 구성)
+│   ├── B 단계: 6~10권 (15강 구성)
+│   └── C 단계: 11~15권 (12강 구성)
+└── 각 권별
+    └── 강좌 (Lesson)
+        └── 차시 (Attempt) - 무제한 재시도
+</div></code></pre>
+<h3 id="22-%ED%95%99%EC%8A%B5-%EA%B5%AC%EA%B0%84-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98">2.2 학습 구간 아키텍처</h3>
+<h4 id="a-%EB%8B%A8%EA%B3%84-15%EA%B6%8C---%EA%B8%B0%EC%B4%88">A 단계 (1~5권) - 기초</h4>
+<pre class="hljs"><code><div>제목읽기 → 어휘확인 → 지문읽기 → 문제확인1 → 모르는문제1
+→ 다시읽기(필수) → 문제확인2 → 문제풀이 → 정보처리 → 줄거리순서 → 어휘문제
+</div></code></pre>
+<h4 id="bc-%EB%8B%A8%EA%B3%84-615%EA%B6%8C---%EC%A4%91%EA%B8%89%EA%B3%A0%EA%B8%89">B/C 단계 (6~15권) - 중급/고급</h4>
+<pre class="hljs"><code><div>제목읽기 → 어휘확인 → 지문읽기 → 문제확인 → 모르는문제
+→ (실패 시) 다시읽기 → 문제확인/문제풀이 → 정보처리 → 줄거리순서 → 어휘문제
+</div></code></pre>
+<h3 id="23-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B3%84%EC%B8%B5-%EA%B5%AC%EC%A1%B0">2.3 데이터 계층 구조</h3>
+<pre class="hljs"><code><div>사용자 (User)
+  ├── 라이선스 (License) - 권 사용 권한
+  │     ├── 사용 중 (Active)
+  │     ├── 완료 (Completed) - 모든 강 성공
+  │     └── 만료 (Expired) - 기한 초과
+  │
+  ├── 학습 수행 (Lesson Attempt)
+  │     ├── 차시 정보 (attempt_number)
+  │     ├── 결과 (success/fail/in_progress)
+  │     └── 구간별 결과 (Section Result)
+  │           ├── 제목읽기
+  │           ├── 어휘확인
+  │           ├── 지문읽기 (시간, 분당 글자 수)
+  │           ├── 문제확인 (모르는 문제 개수)
+  │           ├── 다시읽기 (시간, 분당 글자 수)
+  │           ├── 문제풀이 (정답/오답/모름)
+  │           ├── 정보처리 (소요 시간)
+  │           ├── 줄거리순서 (시도 횟수, 성공/실패)
+  │           └── 어휘문제 (정답 개수)
+  │
+  ├── 어휘 학습 (Vocab Learning)
+  │     ├── 아는 어휘 / 모르는 어휘
+  │     ├── 오늘의 어휘
+  │     └── 테마 학습
+  │
+  ├── 서술 요약 (Summary)
+  │     ├── 학생 작성 요약
+  │     └── AI 교정 결과
+  │
+  └── 퀘스트 (Quest)
+        ├── 상품 선택
+        ├── 4가지 퀘스트 진행
+        └── 쿠폰 획득
+</div></code></pre>
+<hr>
+<h2 id="3-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EB%B6%84%EC%84%9D">3. 주요 기능 분석</h2>
+<h3 id="31-%EB%9D%BC%EC%9D%B4%EC%84%A0%EC%8A%A4-%EA%B4%80%EB%A6%AC-%EC%8B%9C%EC%8A%A4%ED%85%9C">3.1 라이선스 관리 시스템</h3>
+<h4 id="%EB%9D%BC%EC%9D%B4%EC%84%A0%EC%8A%A4-%EC%83%9D%EB%AA%85%EC%A3%BC%EA%B8%B0">라이선스 생명주기</h4>
+<pre class="hljs"><code><div>부여 (Granted)
+  ↓
+사용 중 (Active)
+  ├→ 학습 완료 (Completed) - 모든 강 성공
+  └→ 기한 만료 (Expired) - 6개월 경과
+</div></code></pre>
+<h4 id="%EB%9D%BC%EC%9D%B4%EC%84%A0%EC%8A%A4-%EA%B7%9C%EC%B9%99">라이선스 규칙</h4>
+<table>
+<thead>
+<tr>
+<th>규칙</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>사용 기한</strong></td>
+<td>부여 시점 기준 <strong>6개월</strong></td>
+</tr>
+<tr>
+<td><strong>중복 부여</strong></td>
+<td>동일 권 중복 가능 → 별도 학습관 생성</td>
+</tr>
+<tr>
+<td><strong>진행 보장</strong></td>
+<td>기한 내 학습 이력 유지</td>
+</tr>
+<tr>
+<td><strong>결과 접근</strong></td>
+<td>만료 후에도 결과지 조회 가능</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-%EA%B0%95%EC%A2%8C-%ED%95%99%EC%8A%B5-%EC%8B%9C%EC%8A%A4%ED%85%9C">3.2 강좌 학습 시스템</h3>
+<h4 id="%EA%B0%95%EC%A2%8C-%EC%A7%84%ED%96%89-%EA%B7%9C%EC%B9%99">강좌 진행 규칙</h4>
+<pre class="hljs"><code><div>순차 진행 원칙
+├── 1강부터 순서대로 진행
+├── 현재 강 '성공' 시 다음 강 진입 가능
+└── 동일 강 내 3차시 연속 실패 → 자동 패스
+    └── 패스된 강 클릭 → 재진행 가능
+</div></code></pre>
+<h4 id="%EC%B0%A8%EC%8B%9C-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC">차시 상태 관리</h4>
+<table>
+<thead>
+<tr>
+<th>상태</th>
+<th>설명</th>
+<th>조건</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>성공</strong></td>
+<td>모든 구간 통과</td>
+<td>어휘문제까지 완료</td>
+</tr>
+<tr>
+<td><strong>실패</strong></td>
+<td>탈락 구간 발생</td>
+<td>제한 시간 초과, 오답 초과 등</td>
+</tr>
+<tr>
+<td><strong>진행 중</strong></td>
+<td>학습 수행 중</td>
+<td>20분 이내 재접속 가능</td>
+</tr>
+</tbody>
+</table>
+<h4 id="%EC%9D%B4%EC%96%B4%ED%95%98%EA%B8%B0-%EA%B8%B0%EB%8A%A5">이어하기 기능</h4>
+<ul>
+<li><strong>20분 이내</strong>: 중단 지점부터 이어하기 가능</li>
+<li><strong>20분 초과</strong>: 차시 이력 초기화, 처음부터 재시작</li>
+</ul>
+<h4 id="%EC%9E%90%EB%8F%99-%EC%A2%85%EB%A3%8C">자동 종료</h4>
+<ul>
+<li><strong>10분 이상 활동 없음</strong>: 알림 팝업 표시</li>
+<li><strong>팝업 미응답</strong>: 자동 종료</li>
+<li><strong>팝업 응답</strong>: 학습 계속 진행</li>
+</ul>
+<h3 id="33-%EB%8B%A8%EA%B3%84%EB%B3%84-%ED%95%99%EC%8A%B5-%ED%8A%B9%EC%84%B1">3.3 단계별 학습 특성</h3>
+<h4 id="a-%EB%8B%A8%EA%B3%84-15%EA%B6%8C---%EA%B8%B0%EC%B4%88-%EB%8B%A8%EA%B3%84">A 단계 (1~5권) - 기초 단계</h4>
+<pre class="hljs"><code><div><span class="hljs-string">특징:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">강좌</span> <span class="hljs-string">수:</span> <span class="hljs-number">12</span><span class="hljs-string">강</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">문항</span> <span class="hljs-string">수:</span> <span class="hljs-number">6</span><span class="hljs-string">문항</span> <span class="hljs-string">(사실형</span> <span class="hljs-number">100</span><span class="hljs-string">%)</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">다시읽기:</span> <span class="hljs-string">필수</span> <span class="hljs-string">진행</span>
+  
+<span class="hljs-string">읽기</span> <span class="hljs-string">시간:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">지문읽기</span> <span class="hljs-string">목표:</span> <span class="hljs-number">3</span><span class="hljs-string">분</span> <span class="hljs-string">(초과</span> <span class="hljs-string">가능)</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">다시읽기</span> <span class="hljs-string">제한:</span> <span class="hljs-number">2</span><span class="hljs-string">분</span> <span class="hljs-number">40</span><span class="hljs-string">초</span>
+  
+<span class="hljs-string">탈락</span> <span class="hljs-string">조건:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">다시읽기:</span> <span class="hljs-string">제한</span> <span class="hljs-string">시간</span> <span class="hljs-string">초과</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">문제확인2:</span> <span class="hljs-string">모르는</span> <span class="hljs-string">문제</span> <span class="hljs-number">2</span><span class="hljs-string">개</span> <span class="hljs-string">이상</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">문제풀이:</span> <span class="hljs-string">오답+모름</span> <span class="hljs-number">2</span><span class="hljs-string">개</span> <span class="hljs-string">이상</span>
+</div></code></pre>
+<h4 id="b-%EB%8B%A8%EA%B3%84-610%EA%B6%8C---%EC%A4%91%EA%B8%89-%EB%8B%A8%EA%B3%84">B 단계 (6~10권) - 중급 단계</h4>
+<pre class="hljs"><code><div><span class="hljs-string">특징:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">강좌</span> <span class="hljs-string">수:</span> <span class="hljs-number">15</span><span class="hljs-string">강</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">문항</span> <span class="hljs-string">수:</span> <span class="hljs-number">7</span><span class="hljs-string">~9문항</span> <span class="hljs-string">(사실+추론)</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">다시읽기:</span> <span class="hljs-string">조건부</span> <span class="hljs-string">(실패</span> <span class="hljs-string">시만)</span>
+  
+<span class="hljs-string">읽기</span> <span class="hljs-string">시간:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">지문읽기</span> <span class="hljs-string">제한:</span> <span class="hljs-number">3</span><span class="hljs-string">분</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">다시읽기</span> <span class="hljs-string">제한:</span> <span class="hljs-number">2</span><span class="hljs-string">분</span> <span class="hljs-number">50</span><span class="hljs-string">초</span>
+  
+<span class="hljs-string">탈락</span> <span class="hljs-string">조건:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">지문읽기:</span> <span class="hljs-string">제한</span> <span class="hljs-string">시간</span> <span class="hljs-string">초과</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">문제확인:</span> <span class="hljs-string">모르는</span> <span class="hljs-string">문제</span> <span class="hljs-number">2</span><span class="hljs-string">개</span> <span class="hljs-string">이상</span> <span class="hljs-string">(1차),</span> <span class="hljs-number">1</span><span class="hljs-string">개</span> <span class="hljs-string">이상</span> <span class="hljs-string">(2차)</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">문제풀이:</span> <span class="hljs-string">오답+모름</span> <span class="hljs-number">2</span><span class="hljs-string">개</span> <span class="hljs-string">이상</span> <span class="hljs-string">(1차),</span> <span class="hljs-number">1</span><span class="hljs-string">개</span> <span class="hljs-string">이상</span> <span class="hljs-string">(2차)</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">비판</span> <span class="hljs-string">문항은</span> <span class="hljs-string">탈락</span> <span class="hljs-string">조건에서</span> <span class="hljs-string">제외</span>
+</div></code></pre>
+<h4 id="c-%EB%8B%A8%EA%B3%84-1115%EA%B6%8C---%EA%B3%A0%EA%B8%89-%EB%8B%A8%EA%B3%84">C 단계 (11~15권) - 고급 단계</h4>
+<pre class="hljs"><code><div><span class="hljs-string">특징:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">강좌</span> <span class="hljs-string">수:</span> <span class="hljs-number">12</span><span class="hljs-string">강</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">문항</span> <span class="hljs-string">수:</span> <span class="hljs-number">10</span><span class="hljs-string">문항</span> <span class="hljs-string">(사실+추론+비판)</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">다시읽기:</span> <span class="hljs-string">조건부</span> <span class="hljs-string">(실패</span> <span class="hljs-string">시만)</span>
+  
+<span class="hljs-string">읽기</span> <span class="hljs-string">시간:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">지문읽기</span> <span class="hljs-string">제한:</span> <span class="hljs-number">3</span><span class="hljs-string">분</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">다시읽기</span> <span class="hljs-string">제한:</span> <span class="hljs-number">3</span><span class="hljs-string">분</span>
+  
+<span class="hljs-string">탈락</span> <span class="hljs-string">조건:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">지문읽기:</span> <span class="hljs-string">제한</span> <span class="hljs-string">시간</span> <span class="hljs-string">초과</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">문제확인:</span> <span class="hljs-string">모르는</span> <span class="hljs-string">문제</span> <span class="hljs-number">1</span><span class="hljs-string">개</span> <span class="hljs-string">이상</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">문제풀이:</span> <span class="hljs-string">오답+모름</span> <span class="hljs-number">1</span><span class="hljs-string">개</span> <span class="hljs-string">이상</span> <span class="hljs-string">(비판</span> <span class="hljs-string">제외)</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">가장</span> <span class="hljs-string">엄격한</span> <span class="hljs-string">통과</span> <span class="hljs-string">기준</span>
+</div></code></pre>
+<h3 id="34-%EC%A2%85%ED%95%A9-%EC%96%B4%ED%9C%98%EC%9E%A5-%EC%8B%9C%EC%8A%A4%ED%85%9C">3.4 종합 어휘장 시스템</h3>
+<h4 id="%EC%96%B4%ED%9C%98-%EB%B6%84%EB%A5%98-%EC%B2%B4%EA%B3%84">어휘 분류 체계</h4>
+<pre class="hljs"><code><div>어휘 초기 상태 (강좌 학습 시)
+  ├→ 어휘문제 정답 → [아는 어휘]
+  └→ 어휘문제 오답 → [모르는 어휘]
+
+어휘 학습 후 재분류
+  ├→ 2문제 모두 정답 → [아는 어휘]로 이동
+  └→ 1문제 이상 오답 → [모르는 어휘]로 이동
+</div></code></pre>
+<h4 id="%EC%98%A4%EB%8A%98%EC%9D%98-%EC%96%B4%ED%9C%98">오늘의 어휘</h4>
+<pre class="hljs"><code><div>생성 조건:
+  - 강좌 성공 차시의 어휘문제에서 틀린 문제
+  - 최근 성공한 강좌 순으로 자동 생성
+  - 화면에 최대 3개 강만 표시
+
+진행 구간:
+  살펴보기 → 집중학습 → 문제풀기
+
+완료 조건:
+  - 문제풀기까지 완료 시 결과지 생성
+  - 완료된 강은 목록에서 제거
+  
+퀘스트 반영:
+  - 어휘문제에서 모든 어휘 정답 시에도 &quot;오늘의 어휘 완료&quot;로 간주
+</div></code></pre>
+<h4 id="%ED%85%8C%EB%A7%88-%ED%95%99%EC%8A%B5">테마 학습</h4>
+<table>
+<thead>
+<tr>
+<th>테마</th>
+<th>대상 어휘</th>
+<th>출제 개수</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>내가 선택한 어휘</strong></td>
+<td>학생이 직접 선택</td>
+<td>최대 10개 (1개 이상 가능)</td>
+</tr>
+<tr>
+<td><strong>최근 맞힌 어휘</strong></td>
+<td>최근 10개 학습에서 아는 어휘로 이동한 어휘</td>
+<td>10개 (랜덤)</td>
+</tr>
+<tr>
+<td><strong>추천 어휘</strong></td>
+<td>최근/오랫동안 제외한 나머지</td>
+<td>10개 (랜덤)</td>
+</tr>
+<tr>
+<td><strong>오랫동안 안 본 어휘</strong></td>
+<td>1개월 이상 미진행 어휘</td>
+<td>10개 (랜덤)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>제한사항</strong>: 사용 기한 만료 권의 어휘는 테마 학습 불가</p>
+<h3 id="35-%EC%84%9C%EC%88%A0-%EC%9A%94%EC%95%BD-%EC%8B%9C%EC%8A%A4%ED%85%9C">3.5 서술 요약 시스템</h3>
+<h4 id="%EB%B0%9C%EB%AC%B8-%EC%9C%A0%ED%98%95">발문 유형</h4>
+<ul>
+<li>지문 난이도에 따라 <strong>4가지 유형</strong> 존재</li>
+<li>각 유형별 힌트 제공 (접기/펼치기 가능)</li>
+</ul>
+<h4 id="%EC%9E%91%EC%84%B1-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4">작성 프로세스</h4>
+<pre class="hljs"><code><div>줄거리순서 구간 완료
+  ↓
+서술 요약 생성 (오늘의 요약)
+  ↓
+학생 작성 (나의 요약)
+  ↓
+[확인] 버튼 클릭
+  ├→ 모범 답안 표시
+  └→ AI 교정 결과 표시
+
+작성 완료 후에도 수정 가능
+  └→ AI 교정도 함께 업데이트
+</div></code></pre>
+<h4 id="%EC%98%A4%EB%8A%98%EC%9D%98-%EC%9A%94%EC%95%BD">오늘의 요약</h4>
+<ul>
+<li>최근 학습 완료 강좌 순으로 최대 3개 표시</li>
+<li>완료 시 목록에서 제거</li>
+<li>사용 기한 만료 권은 조회만 가능 (수정 불가)</li>
+</ul>
+<h3 id="36-%ED%80%98%EC%8A%A4%ED%8A%B8-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%82%98%EB%A7%8C%EC%9D%98-%EB%94%94%EC%A0%80%ED%8A%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0">3.6 퀘스트 시스템 (나만의 디저트 만들기)</h3>
+<h4 id="%ED%80%98%EC%8A%A4%ED%8A%B8-%EA%B5%AC%EC%A1%B0">퀘스트 구조</h4>
+<pre class="hljs"><code><div><span class="hljs-number">4</span><span class="hljs-string">가지</span> <span class="hljs-string">퀘스트:</span>
+  <span class="hljs-number">1</span><span class="hljs-string">.</span> <span class="hljs-string">강좌</span> <span class="hljs-string">성공:</span> <span class="hljs-number">10</span><span class="hljs-string">개</span>
+  <span class="hljs-number">2</span><span class="hljs-string">.</span> <span class="hljs-string">오늘의</span> <span class="hljs-string">어휘</span> <span class="hljs-string">완료:</span> <span class="hljs-number">7</span><span class="hljs-string">개</span>
+  <span class="hljs-number">3</span><span class="hljs-string">.</span> <span class="hljs-string">오늘의</span> <span class="hljs-string">요약</span> <span class="hljs-string">완료:</span> <span class="hljs-number">7</span><span class="hljs-string">개</span>
+  <span class="hljs-number">4</span><span class="hljs-string">.</span> <span class="hljs-string">테마</span> <span class="hljs-string">학습</span> <span class="hljs-number">1</span><span class="hljs-string">회</span> <span class="hljs-string">완료:</span> <span class="hljs-number">5</span><span class="hljs-string">개</span>
+
+<span class="hljs-string">진행률</span> <span class="hljs-string">계산:</span>
+  <span class="hljs-string">(완료</span> <span class="hljs-string">횟수</span> <span class="hljs-string">/</span> <span class="hljs-string">목표</span> <span class="hljs-string">횟수)</span> <span class="hljs-string">×</span> <span class="hljs-number">100</span>
+
+<span class="hljs-string">상품</span> <span class="hljs-string">획득</span> <span class="hljs-string">조건:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-number">4</span><span class="hljs-string">가지</span> <span class="hljs-string">퀘스트</span> <span class="hljs-string">모두</span> <span class="hljs-number">100</span><span class="hljs-string">%</span> <span class="hljs-string">달성</span>
+</div></code></pre>
+<h4 id="%EC%83%81%ED%92%88-%EB%B0%8F-%EB%B3%B4%EC%83%81-%EC%8B%9C%EC%8A%A4%ED%85%9C">상품 및 보상 시스템</h4>
+<pre class="hljs"><code><div>상품 선택
+  ├→ 변경 불가 (완료 시까지)
+  ├→ 중복 선택 가능
+  └→ 미선택 시에도 학습 이력 누적
+
+완료 시 보상:
+  ├→ 일반 쿠폰: 무조건 지급
+  └→ 우수 쿠폰: 순차 완료 시 추가 지급
+      (추가 활동 미루지 않고 진행)
+</div></code></pre>
+<h4 id="%ED%80%98%EC%8A%A4%ED%8A%B8-%EC%A7%84%ED%96%89-ui">퀘스트 진행 UI</h4>
+<pre class="hljs"><code><div>재료 게이지 표시:
+  - 진행률 1/3 지점마다 재료 양 증가
+  - 모무 캐릭터로 진행 독려
+
+초과 횟수 처리:
+  - 특정 퀘스트 100% 초과 시 횟수 유지
+  - 다음 상품 선택 시 초과분 일괄 반영
+</div></code></pre>
+<h3 id="37-%ED%95%99%EC%8A%B5-%EA%B2%B0%EA%B3%BC-%EA%B4%80%EB%A6%AC">3.7 학습 결과 관리</h3>
+<h4 id="%EA%B2%B0%EA%B3%BC%EC%A7%80-%EC%A2%85%EB%A5%98">결과지 종류</h4>
+<table>
+<thead>
+<tr>
+<th>결과지</th>
+<th>범위</th>
+<th>포함 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>간이 결과</strong></td>
+<td>차시별</td>
+<td>구간별 소요 시간, 정답 개수, 성공/실패</td>
+</tr>
+<tr>
+<td><strong>상세 결과</strong></td>
+<td>차시별</td>
+<td>구간별 세부 데이터, 문제 분석</td>
+</tr>
+<tr>
+<td><strong>권별 종합 결과</strong></td>
+<td>권 전체</td>
+<td>성공 차시 누적 데이터, 통계</td>
+</tr>
+<tr>
+<td><strong>어휘 학습 결과</strong></td>
+<td>어휘 학습별</td>
+<td>예문 작성, 유형별 이해도</td>
+</tr>
+</tbody>
+</table>
+<h4 id="%ED%95%99%EC%8A%B5-%ED%98%84%ED%99%A9-%EC%8B%A0%ED%98%B8%EB%93%B1">학습 현황 신호등</h4>
+<pre class="hljs"><code><div><span class="hljs-string">지문읽기/다시읽기:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">표준:</span> <span class="hljs-string">평소</span> <span class="hljs-string">읽기</span> <span class="hljs-string">속도</span> <span class="hljs-number">70</span><span class="hljs-string">~130%</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">느림:</span> <span class="hljs-number">70</span><span class="hljs-string">%</span> <span class="hljs-string">미만</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">빠름:</span> <span class="hljs-number">130</span><span class="hljs-string">%</span> <span class="hljs-string">초과</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">제한</span> <span class="hljs-string">시간</span> <span class="hljs-string">초과:</span> <span class="hljs-string">탈락</span>
+
+<span class="hljs-string">문제확인:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">모르는</span> <span class="hljs-string">문제</span> <span class="hljs-string">초과:</span> <span class="hljs-string">탈락</span>
+
+<span class="hljs-string">문제풀이:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">오답</span> <span class="hljs-string">문제</span> <span class="hljs-string">초과:</span> <span class="hljs-string">탈락</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">이해도</span> <span class="hljs-number">70</span> <span class="hljs-string">이상:</span> <span class="hljs-string">좋음</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">이해도</span> <span class="hljs-number">70</span> <span class="hljs-string">미만:</span> <span class="hljs-string">나쁨</span>
+
+<span class="hljs-string">줄거리순서:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-number">1</span><span class="hljs-string">회</span> <span class="hljs-string">정답:</span> <span class="hljs-string">좋음</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-number">2</span><span class="hljs-string">회</span> <span class="hljs-string">정답:</span> <span class="hljs-string">좋음</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-number">2</span><span class="hljs-string">회</span> <span class="hljs-string">오답:</span> <span class="hljs-string">나쁨</span>
+</div></code></pre>
+<h3 id="38-%EC%95%8C%EB%A6%BC-%EC%8B%9C%EC%8A%A4%ED%85%9C">3.8 알림 시스템</h3>
+<h4 id="%EC%95%8C%EB%A6%BC-%EC%A2%85%EB%A5%98">알림 종류</h4>
+<pre class="hljs"><code><div><span class="hljs-string">선물하기:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">학원장이</span> <span class="hljs-string">포인트</span> <span class="hljs-string">선물</span> <span class="hljs-string">시</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">즉시</span> <span class="hljs-string">팝업</span> <span class="hljs-string">표시</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">알림</span> <span class="hljs-string">이력에</span> <span class="hljs-string">저장</span>
+
+<span class="hljs-string">QnA</span> <span class="hljs-string">답변:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">질문에</span> <span class="hljs-string">답변</span> <span class="hljs-string">생성</span> <span class="hljs-string">시</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">클릭</span> <span class="hljs-string">시</span> <span class="hljs-string">QnA</span> <span class="hljs-string">글로</span> <span class="hljs-string">이동</span>
+
+<span class="hljs-string">라이선스</span> <span class="hljs-string">사용</span> <span class="hljs-string">기한:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">사용</span> <span class="hljs-string">기한</span> <span class="hljs-number">7</span><span class="hljs-string">일</span> <span class="hljs-string">미만</span> <span class="hljs-string">시</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">권별로</span> <span class="hljs-string">개별</span> <span class="hljs-string">알림</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">매일</span> <span class="hljs-string">확인</span> <span class="hljs-string">(중복</span> <span class="hljs-string">방지)</span>
+</div></code></pre>
+<h4 id="%EC%95%8C%EB%A6%BC-%EA%B4%80%EB%A6%AC">알림 관리</h4>
+<ul>
+<li>최근 10개만 표시</li>
+<li>읽음/안읽음 상태 관리</li>
+<li>확인 시 알림 아이콘 숨김</li>
+</ul>
+<hr>
+<h2 id="4-%EC%82%AC%EC%9A%A9%EC%9E%90-%ED%94%8C%EB%A1%9C%EC%9A%B0">4. 사용자 플로우</h2>
+<h3 id="41-%EC%B4%88%EA%B8%B0-%EC%A7%84%EC%9E%85-%ED%94%8C%EB%A1%9C%EC%9A%B0">4.1 초기 진입 플로우</h3>
+<pre class="hljs"><code><div>신규 학생
+  ↓
+로그인
+  ↓
+라이선스 미부여 화면
+  ├→ [구매하기] 클릭 → 구매 페이지
+  ├→ 퀘스트 [시작하기] 클릭 → 진입 불가 팝업
+  └→ 추가 활동 [확인하기] 클릭 → 진입 불가 팝업
+  
+라이선스 부여 후
+  ↓
+읽쓰 문해력 메인 화면
+  ├→ 나의 학습관 (부여된 권 표시)
+  ├→ 퀘스트 (상품 선택 가능)
+  └→ 추가 활동 (종합 어휘장, 서술 요약)
+</div></code></pre>
+<h3 id="42-%EA%B0%95%EC%A2%8C-%ED%95%99%EC%8A%B5-%ED%94%8C%EB%A1%9C%EC%9A%B0">4.2 강좌 학습 플로우</h3>
+<pre class="hljs"><code><div>권 메인 화면
+  ↓
+강좌 선택 (진행 가능한 강)
+  ↓
+[독해 테라피] (직전 차시 연속 실패 시)
+  ↓
+[정독 테라피] (직전 차시 문제확인/문제풀이 실패 시)
+  ↓
+학습 구간 진행
+  ├→ 제목읽기
+  ├→ 어휘확인
+  ├→ 지문읽기
+  ├→ 문제확인
+  ├→ 다시읽기 (조건부/필수)
+  ├→ 문제풀이
+  ├→ 정보처리
+  ├→ 줄거리순서
+  └→ 어휘문제
+  ↓
+결과 확인
+  ├→ 성공 → 간이 결과 → 권 메인
+  └→ 실패 → 간이 결과 → 권 메인
+  ↓
+추가 활동 가능
+  ├→ 오늘의 어휘 (틀린 어휘 있을 시)
+  └→ 오늘의 요약 (강 성공 시)
+</div></code></pre>
+<h3 id="43-%EC%96%B4%ED%9C%98-%ED%95%99%EC%8A%B5-%ED%94%8C%EB%A1%9C%EC%9A%B0">4.3 어휘 학습 플로우</h3>
+<pre class="hljs"><code><div>종합 어휘장 메인
+  ↓
+오늘의 어휘
+  ├→ 강좌 선택 (1개 이상)
+  ├→ 살펴보기 (어휘 카드)
+  ├→ 집중학습 (예문 작성)
+  └→ 문제풀기 (2순위, 3순위 문제)
+  ↓
+결과 확인
+  └→ 2문제 모두 정답 → 아는 어휘로 이동
+
+테마 학습
+  ├→ 내가 선택한 어휘 (직접 선택)
+  ├→ 최근 맞힌 어휘
+  ├→ 추천 어휘
+  └→ 오랫동안 안 본 어휘
+  ↓
+문제풀기 (최대 10문제)
+  ↓
+결과 확인
+</div></code></pre>
+<h3 id="44-%ED%80%98%EC%8A%A4%ED%8A%B8-%EC%A7%84%ED%96%89-%ED%94%8C%EB%A1%9C%EC%9A%B0">4.4 퀘스트 진행 플로우</h3>
+<pre class="hljs"><code><div>퀘스트 화면 진입
+  ↓
+상품 선택 (처음 또는 완료 후)
+  ↓
+학습 활동 수행
+  ├→ 강좌 성공
+  ├→ 오늘의 어휘 완료
+  ├→ 오늘의 요약 완료
+  └→ 테마 학습 완료
+  ↓
+퀘스트 진행률 상승
+  └→ 재료 게이지 증가
+  ↓
+4가지 퀘스트 모두 100%
+  ↓
+상품 획득
+  ├→ 일반 쿠폰 발급
+  └→ (순차 완료 시) 우수 쿠폰 발급
+  ↓
+쿠폰함 저장
+</div></code></pre>
+<hr>
+<h2 id="5-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%9D%90%EB%A6%84-%EB%B6%84%EC%84%9D">5. 데이터 흐름 분석</h2>
+<h3 id="51-%ED%95%99%EC%8A%B5-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%83%9D%EC%84%B1-%ED%9D%90%EB%A6%84">5.1 학습 데이터 생성 흐름</h3>
+<pre class="hljs"><code><div>강좌 진입
+  ↓
+lesson_attempt 생성 (in_progress)
+  ├→ attempt_number (차시 번호)
+  ├→ started_at (시작 일시)
+  └→ result (진행 중)
+  ↓
+각 구간 진행
+  ↓
+section_result 생성 (구간별)
+  ├→ section_type (구간 유형)
+  ├→ elapsed_time (소요 시간)
+  ├→ reading_speed (분당 글자 수)
+  ├→ correct_count (정답 개수)
+  └→ section_data (JSON 추가 데이터)
+  ↓
+어휘문제 완료
+  ↓
+lesson_attempt 업데이트
+  ├→ result (success/fail)
+  ├→ completed_at (완료 일시)
+  └→ total_elapsed_time (총 소요 시간)
+  ↓
+어휘 분류
+  ↓
+vocab_learning 업데이트
+  ├→ status (known/unknown)
+  └→ last_correct_at / last_wrong_at
+  ↓
+퀘스트 진행률 업데이트
+  ↓
+quest_progress 업데이트
+  └→ completed_count, progress_rate
+</div></code></pre>
+<h3 id="52-%EC%96%B4%ED%9C%98-%ED%95%99%EC%8A%B5-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%9D%90%EB%A6%84">5.2 어휘 학습 데이터 흐름</h3>
+<pre class="hljs"><code><div>오늘의 어휘 / 테마 학습 진행
+  ↓
+vocab_learning_result 생성
+  ├→ learning_type (학습 유형)
+  ├→ total_problems (출제 문항 수)
+  ├→ correct_count (정답 개수)
+  └→ completed_at (완료 일시)
+  ↓
+vocab_learning 업데이트
+  ├→ status 재분류 (known/unknown)
+  ├→ total_correct_count 증가
+  └→ last_correct_at 업데이트
+  ↓
+퀘스트 진행률 업데이트 (해당 시)
+</div></code></pre>
+<h3 id="53-%ED%80%98%EC%8A%A4%ED%8A%B8-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%9D%90%EB%A6%84">5.3 퀘스트 데이터 흐름</h3>
+<pre class="hljs"><code><div>학습 활동 완료
+  ↓
+quest_history 생성
+  ├→ quest_type (퀘스트 유형)
+  ├→ activity_date (활동 일자)
+  └→ lesson_id (강좌 성공 시)
+  ↓
+quest_progress 업데이트
+  ├→ completed_count 증가
+  └→ progress_rate 계산
+  ↓
+4가지 퀘스트 모두 100%
+  ↓
+quest 업데이트
+  ├→ status (completed)
+  ├→ is_excellent (순차 완료 여부)
+  └→ completed_at (완료 일시)
+  ↓
+coupon 생성
+  ├→ coupon_type (excellent/normal)
+  ├→ issued_at (발급 일시)
+  └→ status (available)
+  ↓
+notification 생성 (쿠폰 발급 알림)
+</div></code></pre>
+<hr>
+<h2 id="6-%EB%B9%84%EC%A6%88%EB%8B%88%EC%8A%A4-%EB%A1%9C%EC%A7%81">6. 비즈니스 로직</h2>
+<h3 id="61-%EC%B0%A8%EC%8B%9C-%EC%84%B1%EA%B3%B5%EC%8B%A4%ED%8C%A8-%ED%8C%90%EC%A0%95-%EB%A1%9C%EC%A7%81">6.1 차시 성공/실패 판정 로직</h3>
+<h4 id="a-%EB%8B%A8%EA%B3%84">A 단계</h4>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">check_a_stage_result</span><span class="hljs-params">(section_results)</span>:</span>
+    <span class="hljs-comment"># 다시읽기 제한 시간 초과</span>
+    <span class="hljs-keyword">if</span> section_results[<span class="hljs-string">'re_reading'</span>][<span class="hljs-string">'elapsed_time'</span>] &gt; <span class="hljs-number">160</span>:  <span class="hljs-comment"># 2분 40초</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'fail'</span>, <span class="hljs-string">'다시읽기 제한 시간 초과'</span>
+    
+    <span class="hljs-comment"># 문제확인2 모르는 문제 개수</span>
+    <span class="hljs-keyword">if</span> section_results[<span class="hljs-string">'question_check2'</span>][<span class="hljs-string">'unknown_count'</span>] &gt;= <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'fail'</span>, <span class="hljs-string">'문제확인 모르는 문제 초과'</span>
+    
+    <span class="hljs-comment"># 문제풀이 오답+모름</span>
+    wrong_and_unknown = (section_results[<span class="hljs-string">'problem_solving'</span>][<span class="hljs-string">'wrong_count'</span>] + 
+                         section_results[<span class="hljs-string">'problem_solving'</span>][<span class="hljs-string">'unknown_answer_count'</span>])
+    <span class="hljs-keyword">if</span> wrong_and_unknown &gt;= <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'fail'</span>, <span class="hljs-string">'문제풀이 오답 문제 초과'</span>
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'success'</span>, <span class="hljs-literal">None</span>
+</div></code></pre>
+<h4 id="b-%EB%8B%A8%EA%B3%84">B 단계</h4>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">check_b_stage_result</span><span class="hljs-params">(section_results, is_retry=False)</span>:</span>
+    <span class="hljs-comment"># 지문읽기 제한 시간 초과 (1차)</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> is_retry <span class="hljs-keyword">and</span> section_results[<span class="hljs-string">'passage_reading'</span>][<span class="hljs-string">'elapsed_time'</span>] &gt; <span class="hljs-number">180</span>:
+        <span class="hljs-comment"># 다시읽기 진행</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'retry'</span>, <span class="hljs-string">'지문읽기 제한 시간 초과'</span>
+    
+    <span class="hljs-comment"># 문제확인 모르는 문제</span>
+    unknown_limit = <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> is_retry <span class="hljs-keyword">else</span> <span class="hljs-number">2</span>
+    <span class="hljs-keyword">if</span> section_results[<span class="hljs-string">'question_check'</span>][<span class="hljs-string">'unknown_count'</span>] &gt;= unknown_limit:
+        <span class="hljs-keyword">if</span> is_retry:
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'fail'</span>, <span class="hljs-string">'문제확인 모르는 문제 초과'</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-comment"># 다시읽기 진행</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'retry'</span>, <span class="hljs-string">'문제확인 모르는 문제 초과'</span>
+    
+    <span class="hljs-comment"># 다시읽기 제한 시간 초과 (재시도 시)</span>
+    <span class="hljs-keyword">if</span> is_retry <span class="hljs-keyword">and</span> section_results[<span class="hljs-string">'re_reading'</span>][<span class="hljs-string">'elapsed_time'</span>] &gt; <span class="hljs-number">170</span>:  <span class="hljs-comment"># 2분 50초</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'fail'</span>, <span class="hljs-string">'다시읽기 제한 시간 초과'</span>
+    
+    <span class="hljs-comment"># 문제풀이 오답+모름 (비판 제외)</span>
+    wrong_limit = <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> is_retry <span class="hljs-keyword">else</span> <span class="hljs-number">2</span>
+    wrong_and_unknown = calculate_wrong_count_exclude_critical(section_results[<span class="hljs-string">'problem_solving'</span>])
+    <span class="hljs-keyword">if</span> wrong_and_unknown &gt;= wrong_limit:
+        <span class="hljs-keyword">if</span> is_retry:
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'fail'</span>, <span class="hljs-string">'문제풀이 오답 문제 초과'</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-comment"># 다시읽기 진행</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'retry'</span>, <span class="hljs-string">'문제풀이 오답 문제 초과'</span>
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'success'</span>, <span class="hljs-literal">None</span>
+</div></code></pre>
+<h4 id="c-%EB%8B%A8%EA%B3%84">C 단계</h4>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">check_c_stage_result</span><span class="hljs-params">(section_results, is_retry=False)</span>:</span>
+    <span class="hljs-comment"># 지문읽기 제한 시간 초과 (1차)</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> is_retry <span class="hljs-keyword">and</span> section_results[<span class="hljs-string">'passage_reading'</span>][<span class="hljs-string">'elapsed_time'</span>] &gt; <span class="hljs-number">180</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'retry'</span>, <span class="hljs-string">'지문읽기 제한 시간 초과'</span>
+    
+    <span class="hljs-comment"># 문제확인 모르는 문제 (1개 이상)</span>
+    <span class="hljs-keyword">if</span> section_results[<span class="hljs-string">'question_check'</span>][<span class="hljs-string">'unknown_count'</span>] &gt;= <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">if</span> is_retry:
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'fail'</span>, <span class="hljs-string">'문제확인 모르는 문제 초과'</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'retry'</span>, <span class="hljs-string">'문제확인 모르는 문제 초과'</span>
+    
+    <span class="hljs-comment"># 다시읽기 제한 시간 초과</span>
+    <span class="hljs-keyword">if</span> is_retry <span class="hljs-keyword">and</span> section_results[<span class="hljs-string">'re_reading'</span>][<span class="hljs-string">'elapsed_time'</span>] &gt; <span class="hljs-number">180</span>:  <span class="hljs-comment"># 3분</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'fail'</span>, <span class="hljs-string">'다시읽기 제한 시간 초과'</span>
+    
+    <span class="hljs-comment"># 문제풀이 오답+모름 1개 이상 (비판 제외)</span>
+    wrong_and_unknown = calculate_wrong_count_exclude_critical(section_results[<span class="hljs-string">'problem_solving'</span>])
+    <span class="hljs-keyword">if</span> wrong_and_unknown &gt;= <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">if</span> is_retry:
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'fail'</span>, <span class="hljs-string">'문제풀이 오답 문제 초과'</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'retry'</span>, <span class="hljs-string">'문제풀이 오답 문제 초과'</span>
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'success'</span>, <span class="hljs-literal">None</span>
+</div></code></pre>
+<h3 id="62-%EC%9E%90%EB%8F%99-%ED%8C%A8%EC%8A%A4-%EB%A1%9C%EC%A7%81">6.2 자동 패스 로직</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">check_auto_pass</span><span class="hljs-params">(user_id, lesson_id)</span>:</span>
+    <span class="hljs-string">"""
+    동일 강 내 3차시 연속 실패 시 자동 패스
+    """</span>
+    recent_attempts = get_recent_attempts(user_id, lesson_id, limit=<span class="hljs-number">3</span>)
+    
+    <span class="hljs-keyword">if</span> len(recent_attempts) &gt;= <span class="hljs-number">3</span>:
+        all_failed = all(attempt[<span class="hljs-string">'result'</span>] == <span class="hljs-string">'fail'</span> <span class="hljs-keyword">for</span> attempt <span class="hljs-keyword">in</span> recent_attempts)
+        <span class="hljs-keyword">if</span> all_failed:
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>  <span class="hljs-comment"># 자동 패스 처리</span>
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+</div></code></pre>
+<h3 id="63-%EC%A7%84%ED%96%89%EB%A5%A0-%EA%B3%84%EC%82%B0-%EB%A1%9C%EC%A7%81">6.3 진행률 계산 로직</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calculate_volume_progress</span><span class="hljs-params">(user_id, license_id)</span>:</span>
+    <span class="hljs-string">"""
+    권별 진행률 계산
+    """</span>
+    total_lessons = get_total_lessons(license_id)
+    completed_lessons = count_completed_lessons(user_id, license_id)
+    
+    progress_rate = round((completed_lessons / total_lessons) * <span class="hljs-number">100</span>, <span class="hljs-number">0</span>)
+    
+    <span class="hljs-keyword">return</span> {
+        <span class="hljs-string">'total_lessons'</span>: total_lessons,
+        <span class="hljs-string">'completed_lessons'</span>: completed_lessons,
+        <span class="hljs-string">'remaining_lessons'</span>: total_lessons - completed_lessons,
+        <span class="hljs-string">'progress_rate'</span>: progress_rate
+    }
+</div></code></pre>
+<h3 id="64-%EC%8B%A0%ED%98%B8%EB%93%B1-%EC%83%81%ED%83%9C-%EA%B3%84%EC%82%B0-%EB%A1%9C%EC%A7%81">6.4 신호등 상태 계산 로직</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calculate_traffic_light</span><span class="hljs-params">(section_type, elapsed_time, student_avg_time, target_time)</span>:</span>
+    <span class="hljs-string">"""
+    구간별 신호등 상태 계산
+    """</span>
+    <span class="hljs-keyword">if</span> section_type <span class="hljs-keyword">in</span> [<span class="hljs-string">'passage_reading'</span>, <span class="hljs-string">'re_reading'</span>]:
+        <span class="hljs-comment"># 학생 평소 읽기 기준</span>
+        <span class="hljs-keyword">if</span> student_avg_time:
+            ratio = elapsed_time / student_avg_time
+            <span class="hljs-keyword">if</span> <span class="hljs-number">0.7</span> &lt;= ratio &lt;= <span class="hljs-number">1.3</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'normal'</span>
+            <span class="hljs-keyword">elif</span> ratio &lt; <span class="hljs-number">0.7</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'fast'</span>
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'slow'</span>
+        
+        <span class="hljs-comment"># 학년별 목표 시간 기준</span>
+        <span class="hljs-keyword">if</span> target_time:
+            <span class="hljs-keyword">if</span> elapsed_time &lt;= target_time:
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'good'</span>
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'exceeded'</span>
+    
+    <span class="hljs-keyword">elif</span> section_type == <span class="hljs-string">'problem_solving'</span>:
+        comprehension = calculate_comprehension_score(section_results)
+        <span class="hljs-keyword">if</span> comprehension &gt;= <span class="hljs-number">70</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'good'</span>
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'bad'</span>
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'normal'</span>
+</div></code></pre>
+<h3 id="65-%ED%80%98%EC%8A%A4%ED%8A%B8-%EC%9A%B0%EC%88%98-%EC%83%81%ED%92%88-%ED%8C%90%EC%A0%95-%EB%A1%9C%EC%A7%81">6.5 퀘스트 우수 상품 판정 로직</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">check_excellent_quest</span><span class="hljs-params">(quest_history)</span>:</span>
+    <span class="hljs-string">"""
+    순차적으로 완료했는지 판정
+    - 추가 활동을 미루지 않고 완료
+    """</span>
+    lesson_success_dates = get_quest_dates(quest_history, <span class="hljs-string">'lesson_success'</span>)
+    today_vocab_dates = get_quest_dates(quest_history, <span class="hljs-string">'today_vocab'</span>)
+    today_summary_dates = get_quest_dates(quest_history, <span class="hljs-string">'today_summary'</span>)
+    
+    <span class="hljs-keyword">for</span> lesson_date <span class="hljs-keyword">in</span> lesson_success_dates:
+        <span class="hljs-comment"># 강 성공 후 당일 또는 익일 추가 활동 완료 확인</span>
+        <span class="hljs-keyword">if</span> lesson_date <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> today_vocab_dates <span class="hljs-keyword">and</span> lesson_date <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> today_summary_dates:
+            next_day = lesson_date + timedelta(days=<span class="hljs-number">1</span>)
+            <span class="hljs-keyword">if</span> next_day <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> today_vocab_dates <span class="hljs-keyword">and</span> next_day <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> today_summary_dates:
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>  <span class="hljs-comment"># 미루고 진행함</span>
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>  <span class="hljs-comment"># 순차적으로 완료</span>
+</div></code></pre>
+<hr>
+<h2 id="7-%EA%B8%B0%EC%88%A0%EC%A0%81-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD">7. 기술적 요구사항</h2>
+<h3 id="71-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD">7.1 데이터베이스 요구사항</h3>
+<pre class="hljs"><code><div><span class="hljs-attr">RDBMS:</span> <span class="hljs-string">MySQL</span> <span class="hljs-number">8.0</span><span class="hljs-string">+</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">InnoDB</span> <span class="hljs-string">엔진</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">UTF-8</span> <span class="hljs-string">MB4</span> <span class="hljs-string">인코딩</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">DATETIME(6)</span> <span class="hljs-string">마이크로초</span> <span class="hljs-string">지원</span>
+
+<span class="hljs-string">인덱싱:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">복합</span> <span class="hljs-string">인덱스:</span> <span class="hljs-string">(user_id,</span> <span class="hljs-string">status),</span> <span class="hljs-string">(user_id,</span> <span class="hljs-string">lesson_id)</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">날짜</span> <span class="hljs-string">인덱스:</span> <span class="hljs-string">created_at,</span> <span class="hljs-string">started_at</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">외래키</span> <span class="hljs-string">제약조건</span> <span class="hljs-string">적용</span>
+
+<span class="hljs-string">JSON</span> <span class="hljs-string">필드</span> <span class="hljs-string">활용:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">section_data</span> <span class="hljs-string">(구간별</span> <span class="hljs-string">세부</span> <span class="hljs-string">데이터)</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">ingredient_images</span> <span class="hljs-string">(퀘스트</span> <span class="hljs-string">재료</span> <span class="hljs-string">이미지)</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">weak_vocab_types</span> <span class="hljs-string">(취약</span> <span class="hljs-string">어휘</span> <span class="hljs-string">유형)</span>
+</div></code></pre>
+<h3 id="72-%EC%84%B1%EB%8A%A5-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD">7.2 성능 요구사항</h3>
+<pre class="hljs"><code><div><span class="hljs-string">응답</span> <span class="hljs-string">시간:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">페이지</span> <span class="hljs-string">로딩:</span> <span class="hljs-number">2</span><span class="hljs-string">초</span> <span class="hljs-string">이내</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">구간</span> <span class="hljs-string">전환:</span> <span class="hljs-number">1</span><span class="hljs-string">초</span> <span class="hljs-string">이내</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">결과</span> <span class="hljs-string">생성:</span> <span class="hljs-number">3</span><span class="hljs-string">초</span> <span class="hljs-string">이내</span>
+
+<span class="hljs-string">동시</span> <span class="hljs-string">접속:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">최소</span> <span class="hljs-number">1</span><span class="hljs-string">,000명</span> <span class="hljs-string">동시</span> <span class="hljs-string">사용자</span> <span class="hljs-string">지원</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">피크</span> <span class="hljs-string">타임</span> <span class="hljs-string">대비</span> <span class="hljs-string">확장</span> <span class="hljs-string">가능</span>
+
+<span class="hljs-string">데이터</span> <span class="hljs-string">보존:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">학습</span> <span class="hljs-string">이력:</span> <span class="hljs-string">영구</span> <span class="hljs-string">보존</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">로그</span> <span class="hljs-string">데이터:</span> <span class="hljs-string">최소</span> <span class="hljs-number">1</span><span class="hljs-string">년</span>
+</div></code></pre>
+<h3 id="73-%EB%B3%B4%EC%95%88-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD">7.3 보안 요구사항</h3>
+<pre class="hljs"><code><div><span class="hljs-string">인증/인가:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">세션</span> <span class="hljs-string">기반</span> <span class="hljs-string">인증</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">학생/관리자</span> <span class="hljs-string">권한</span> <span class="hljs-string">분리</span>
+
+<span class="hljs-string">데이터</span> <span class="hljs-string">보호:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">UUID</span> <span class="hljs-string">기본키</span> <span class="hljs-string">(추측</span> <span class="hljs-string">불가)</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">SQL</span> <span class="hljs-string">Injection</span> <span class="hljs-string">방어</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">XSS</span> <span class="hljs-string">방어</span>
+
+<span class="hljs-string">개인정보:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">최소</span> <span class="hljs-string">수집</span> <span class="hljs-string">원칙</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">암호화</span> <span class="hljs-string">저장</span> <span class="hljs-string">(민감</span> <span class="hljs-string">정보)</span>
+</div></code></pre>
+<h3 id="74-%ED%99%95%EC%9E%A5%EC%84%B1-%EA%B3%A0%EB%A0%A4%EC%82%AC%ED%95%AD">7.4 확장성 고려사항</h3>
+<pre class="hljs"><code><div><span class="hljs-string">수평</span> <span class="hljs-string">확장:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">읽기</span> <span class="hljs-string">전용</span> <span class="hljs-string">복제본</span> <span class="hljs-string">활용</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">캐싱</span> <span class="hljs-string">레이어</span> <span class="hljs-string">(Redis)</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">CDN</span> <span class="hljs-string">활용</span> <span class="hljs-string">(정적</span> <span class="hljs-string">리소스)</span>
+
+<span class="hljs-string">파티셔닝:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">로그</span> <span class="hljs-string">테이블</span> <span class="hljs-string">월별</span> <span class="hljs-string">파티셔닝</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">이력</span> <span class="hljs-string">테이블</span> <span class="hljs-string">연도별</span> <span class="hljs-string">파티셔닝</span>
+
+<span class="hljs-string">백업:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">일일</span> <span class="hljs-string">전체</span> <span class="hljs-string">백업</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">실시간</span> <span class="hljs-string">증분</span> <span class="hljs-string">백업</span>
+</div></code></pre>
+<h3 id="75-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD">7.5 모니터링 요구사항</h3>
+<pre class="hljs"><code><div><span class="hljs-string">애플리케이션</span> <span class="hljs-string">모니터링:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">에러</span> <span class="hljs-string">추적</span> <span class="hljs-string">및</span> <span class="hljs-string">알림</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">성능</span> <span class="hljs-string">메트릭</span> <span class="hljs-string">수집</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">사용자</span> <span class="hljs-string">행동</span> <span class="hljs-string">분석</span>
+
+<span class="hljs-string">인프라</span> <span class="hljs-string">모니터링:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">DB</span> <span class="hljs-string">성능</span> <span class="hljs-string">모니터링</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">서버</span> <span class="hljs-string">리소스</span> <span class="hljs-string">모니터링</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">네트워크</span> <span class="hljs-string">트래픽</span> <span class="hljs-string">모니터링</span>
+</div></code></pre>
+<hr>
+<h2 id="%F0%9F%93%9A-%EC%B0%B8%EA%B3%A0-%EB%AC%B8%EC%84%9C">📚 참고 문서</h2>
+<ul>
+<li>원본 기획서: <code>icks_literacy_plan_20251020.pdf</code></li>
+<li>기능 정의서: <code>02_기능_정의서.md</code></li>
+<li>DB 설계서: <code>03_DB_설계서.md</code></li>
+</ul>
+<hr>
+<p><strong>문서 변경 이력</strong></p>
+<ul>
+<li>v1.0 (2025-10-23): 초안 작성</li>
+</ul>
+
+</body>
+</html>
