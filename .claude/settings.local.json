@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-Content \"d:\\wibroProj\\devOpsProj1\\frontend-app\\docs\\주요기능.md\" -Encoding UTF8)",
+      "Bash(cat:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
